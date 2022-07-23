@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
+import {StoreModule} from "@ngrx/store";
+import { reducers, metaReducers } from './reducers';
+import {EffectsModule} from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -11,7 +14,12 @@ import { entityConfig } from './entity-metadata';
   ],
   imports: [
     BrowserModule,
-    EntityDataModule.forRoot(entityConfig)
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(),
+    EntityDataModule.forRoot(entityConfig),
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
